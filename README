@@ -1,0 +1,8 @@
+Routes:
+POST("/signup")
+POST("/signin")
+GET("/services")
+GET("/service/:id")
+POST("/service")
+PUT("/service/:id")
+DELETE("/service/:id")
