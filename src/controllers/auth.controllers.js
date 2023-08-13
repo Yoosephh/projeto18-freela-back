@@ -33,7 +33,7 @@ export async function signIn(req,res){
 
     await R.insertIntoSessions(userId, token);
 
-    res.status(200).send({message:`Seja bem vindo, ${checkUser.rows[0].name}`, token})
+    res.status(200).send({message:`Seja bem vindo, ${checkUser.rows[0].name}`, token, user:checkUser.rows[0]})
   }catch (err){
     console.log(err)
   }
