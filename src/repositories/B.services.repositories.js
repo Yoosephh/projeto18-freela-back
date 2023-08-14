@@ -1,7 +1,7 @@
 import { db } from "../database/database.js"
 
 export async function selectAllServices() {
-  return await db.query(`SELECT id, price, photo, "shortDescription", name FROM services`)
+  return await db.query(`SELECT id, price, photo, "shortDescription", name, "isActive" FROM services`)
 }
 
 export async function selectService(serviceId) {
