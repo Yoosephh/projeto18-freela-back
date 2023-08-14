@@ -27,9 +27,11 @@ export async function signIn(req,res){
   const {email, password} = req.body
   try{
     const checkUser = await R.selectAllUsersEmail(email)
-    if (checkUser.rowCount === 0 ||!(await bcrypt.compare(password, checkUser.rows[0].password))) return res.status(401).send({message:"Email ou senha incorretos! Verifique seus dados novamente"})
+    if (checkUser.rowCount === 0) return res.status(401).send({message:"Usuario não cadastrado"})
+    
+    if(!(await bcrypt.compare(password, checkUser.rows[0].password))) return res.status(401).send({message:"Email ou senha incorretos! Verifique seus dados novamente"})
 
-    const userId = checkUser.rows[0].id
+    const userId = checkUser.rows[0].id;
     const token = uuid();
 
     await R.insertIntoSessions(userId, token);
