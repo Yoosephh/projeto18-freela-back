@@ -5,7 +5,7 @@ export const newServiceSchema = Joi.object({
   name: Joi.string().required(),
   userId: Joi.number().integer().required(),
   shortDescription: Joi.string().min(5).max(150).required(),
-  longDescription: Joi.string(),
+  longDescription: Joi.string().allow(''),
   photo: Joi.string().uri({ scheme: ['http', 'https'] }).required(),
   city: Joi.string().required(),
   isActive: Joi.boolean().required(),

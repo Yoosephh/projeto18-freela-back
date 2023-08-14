@@ -5,7 +5,7 @@ export async function selectAllUsersEmail(email) {
 }
 
 export async function selectAllUsersTelephone(phone) {
-  return await db.query(`SELECT * FROM users WHERE email = $1`, [phone])
+  return await db.query(`SELECT * FROM users WHERE telephone = $1`, [phone])
 }
 
 export async function insertIntoUsers(name, cryptedPassword, email, telephone, city, photo, userType){

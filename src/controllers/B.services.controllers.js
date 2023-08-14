@@ -15,8 +15,8 @@ export async function getService(req,res) {
 export async function getServices(req,res) {
   try{
     const services = await R.selectAllServices()
-
-    res.status(200).send(services.rows[0])
+    const orderedServices = services.rows.reverse()
+    res.status(200).send(orderedServices)
   }catch(err){
     console.log(err)
     res.sendStatus(500);
