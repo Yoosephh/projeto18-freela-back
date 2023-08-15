@@ -7,13 +7,13 @@ export async function signUp(req,res){
 
   try{
     const checkEmail = await R.selectAllUsersEmail(email)
-    if (checkEmail.rowCount !== 0) return res.status(409).send("Email indisponível para uso!")
+    if (checkEmail.rowCount !== 0) return res.status(409).send({message:"Email indisponível para uso!"})
 
     const checkPhone = await R.selectAllUsersTelephone(telephone)
 
-    if (checkPhone.rowCount !== 0) return res.status(409).send("Numero de telefone indisponível para uso!")
+    if (checkPhone.rowCount !== 0) return res.status(409).send({message:"Numero de telefone indisponível para uso!"})
 
-    if(confirmPassword !== password) return res.status(422).send("A senha e a confirmação de senha devem ser iguais!");
+    if(confirmPassword !== password) return res.status(422).send({message: "A senha e a confirmação de senha devem ser iguais!"});
     const cryptedPassword = bcrypt.hashSync(password, 10);
 
     await R.insertIntoUsers(name, cryptedPassword, email, telephone, city, photo, userType)
@@ -28,7 +28,7 @@ export async function signIn(req,res){
   try{
     const checkUser = await R.selectAllUsersEmail(email)
     if (checkUser.rowCount === 0) return res.status(401).send({message:"Usuario não cadastrado"})
-    
+
     if(!(await bcrypt.compare(password, checkUser.rows[0].password))) return res.status(401).send({message:"Email ou senha incorretos! Verifique seus dados novamente"})
 
     const userId = checkUser.rows[0].id;

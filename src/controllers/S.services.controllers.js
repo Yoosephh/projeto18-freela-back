@@ -31,7 +31,7 @@ export async function updateService(req,res) {
     if(checkService.rowCount === 0) return res.status(404).send({message:"Serviço não encontrado!"})
     const serviceStatus = !checkService.rows[0].isActive
     R.serviceUpdate(serviceStatus, serviceId)
-    res.status(204).send("Status atualizado com sucesso")
+    res.status(204).send({message: "Status atualizado com sucesso"})
   }catch(err){
     console.log(err)
     res.sendStatus(500);
